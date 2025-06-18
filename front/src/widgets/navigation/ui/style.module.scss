@@ -1,0 +1,17 @@
+@use "../../../styles//variables.scss" as v;
+.navLink {
+  display: inline-block;
+  padding: 25px 15px;
+  opacity: 0.7;
+  transition-duration: v.$tr-hover;
+
+  &:hover {
+    opacity: 1;
+    transition-duration: v.$tr-hover;
+  }
+  &.active {
+    background: v.$c-primary-dark;
+    opacity: 1;
+    transition-duration: v.$tr-hover;
+  }
+}
