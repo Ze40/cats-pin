@@ -1,17 +1,19 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 
 import { AllCatsPage, FavoritePage } from "./pages";
+import { Header } from "./widgets";
 
 function App() {
   return (
-    <main>
-      <BrowserRouter>
+    <>
+      <Header />
+      <main>
         <Routes>
           <Route index element={<AllCatsPage />} />
           <Route path="/favorite" element={<FavoritePage />} />
         </Routes>
-      </BrowserRouter>
-    </main>
+      </main>
+    </>
   );
 }
 
