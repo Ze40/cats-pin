@@ -1,0 +1,23 @@
+@use "./variables.scss" as *;
+
+//Обертки:
+.relative {
+  position: relative;
+}
+
+.m-auto {
+  margin: 0 auto;
+}
+
+//Цвета:
+.bg-primary {
+  background-color: $c-primary;
+}
+.bg-secondary {
+  background-color: $c-secondary;
+}
+
+//Размеры
+.w-full {
+  width: 100%;
+}
