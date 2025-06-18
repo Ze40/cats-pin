@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router";
+import { Route, Routes } from "react-router";
 
 import { AllCatsPage, FavoritePage } from "./pages";
 import { Header } from "./widgets";

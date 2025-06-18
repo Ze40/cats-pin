@@ -5,6 +5,23 @@
   position: relative;
 }
 
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.center {
+  align-items: center;
+  justify-content: center;
+}
+
 .m-auto {
   margin: 0 auto;
 }
@@ -17,7 +34,25 @@
   background-color: $c-secondary;
 }
 
-//Размеры
+//Цвета текста:
+.color-primary {
+  color: $c-f-primary;
+}
+.color-secondary {
+  color: $c-f-secondary;
+}
+
+//Размеры:
 .w-full {
   width: 100%;
+}
+
+//Размеры шрифта:
+.text-sm {
+  font-size: $fs-sm;
+}
+
+//Отступы:
+.gap-md {
+  gap: 8px;
 }

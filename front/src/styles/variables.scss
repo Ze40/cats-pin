@@ -2,13 +2,18 @@
 $c-primary: #fafafa;
 $c-secondary: #3a98f0;
 $c-red: rgba(242, 78, 30, 1);
+$c-primary-dark: rgba(30, 136, 229, 1);
+
 //Цвета текста
 $c-f-primary: rgba(0, 0, 0, 1);
 $c-f-secondary: rgba(255, 255, 255, 1);
 
 // Размеры шрифтов:
-$fs-sm: 14px;
-$fs-md: 16px;
+$fs-sm: 16px;
+$fs-md: 18px;
 
 // Тени:
 $sh-main: 0px 5px 8px 0px rgba(34, 60, 80, 0.2);
+
+// Время:
+$tr-hover: 0.3s;
