@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <Header />
-      <main>
+      <main className="mt-3xl">
         <Routes>
           <Route index element={<AllCatsPage />} />
           <Route path="/favorite" element={<FavoritePage />} />
