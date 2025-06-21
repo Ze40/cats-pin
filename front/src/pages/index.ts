@@ -1,4 +1,6 @@
-import AllCatsPage from "./all-cats/all-cats";
-import FavoritePage from "./favorite/favorite";
+import RegisterPage from "./auth/register";
+import AllCatsPage from "./content-pages/all-cats/all-cats";
+import FavoritePage from "./content-pages/favorite/favorite";
+import IndexPage from "./index-page";
 
-export { AllCatsPage, FavoritePage };
+export { AllCatsPage, FavoritePage, RegisterPage, IndexPage };
