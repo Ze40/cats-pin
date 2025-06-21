@@ -1,10 +1,30 @@
+@use "../../../styles/variables.scss" as v;
+
 .imgBox {
   aspect-ratio: 1 / 1;
 
   position: relative;
+  transition-duration: v.$tr-hover;
+
+  &:hover {
+    box-shadow: v.$sh-main;
+    transition-duration: v.$tr-hover;
+  }
 }
 
 .img {
   object-fit: contain;
   width: 100%;
+}
+
+.icon {
+  position: absolute;
+  z-index: 10;
+  bottom: 10px;
+  right: 10px;
+
+  &:hover {
+    transform: scale(1.1);
+    transition-duration: v.$tr-hover;
+  }
 }
