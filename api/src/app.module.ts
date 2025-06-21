@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { DbModule } from './db/db.module';
+import { User } from './users/user.entity';
 import { UserModule } from './users/user.module';
 
 @Module({
@@ -12,14 +14,16 @@ import { UserModule } from './users/user.module';
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'cat-pinterest-api-pg',
-      port: 5432,
+      host: 'localhost',
+      port: 5433,
       username: 'postgres',
       password: '1',
       database: 'support_lk_db',
-      entities: [],
+      entities: [User],
+      synchronize: true,
     }),
     UserModule,
+    DbModule,
   ],
   controllers: [],
   providers: [],
