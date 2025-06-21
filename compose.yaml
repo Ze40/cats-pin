@@ -17,37 +17,54 @@ services:
 
   cat-pinterest-api:
     container_name: cat-pinterest-api
-    image: cat-pinterest-api
     build:
-      context: ./api/
-    networks:
-      - cat-pinterest-net
+      context: ./api
+      dockerfile: Dockerfile
+    volumes:
+      - ./api:/usr/src/app
+      - /usr/src/app/node_modules
+    working_dir: /usr/src/app
     environment:
-      NODE_ENV: prod
+      NODE_ENV: development
+      PORT: 3000
+    command: sh -c "npm install && npm run start:dev"
+    ports:
+      - "3000:3000"
     depends_on:
       cat-pinterest-api-pg:
         condition: service_healthy
+    networks:
+      - cat-pinterest-net
 
   cat-pinterest-front:
     container_name: cat-pinterest-front
-    image: cat-pinterest-front
     build:
-      context: ./front/
+      context: ./front
+      dockerfile: Dockerfile
+    volumes:
+      - ./front:/usr/src/app
+      - /usr/src/app/node_modules
     networks:
       - cat-pinterest-net
     environment:
-      NODE_ENV: prod
+      NODE_ENV: development
+      VITE_API_BASE_URL: "http://localhost:8080/api"
+    command: npm run dev
+    ports:
+      - "5173:5173"
 
   cat-pinterest-api-pg:
     container_name: cat-pinterest-api-pg
     image: postgres:14
+    ports:
+      - 5433:5432
     networks:
       - cat-pinterest-net
     environment:
       POSTGRES_PASSWORD: 1
       POSTGRES_USER: postgres
       POSTGRES_DB: support_lk_db
-    #      PG_DATA: /var/lib/postgresql/data
+      PG_DATA: /var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 2s
