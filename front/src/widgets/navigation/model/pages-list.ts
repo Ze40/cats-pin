@@ -8,7 +8,7 @@ export default [
   {
     id: 1,
     title: "Все котики",
-    path: "/",
+    path: "/all-cats",
   },
   {
     id: 2,
