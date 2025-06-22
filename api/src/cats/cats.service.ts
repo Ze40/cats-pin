@@ -41,6 +41,10 @@ export class CatsService {
       .then((response) => response.json())
       .catch((error) => console.log(error))) as Cats[];
 
+    if (!cats) {
+      throw new NotFoundException('Не удалось получить котиков');
+    }
+
     const likes = await this.dbService.getLikes();
 
     likes.forEach(({ cat_id }) => {
