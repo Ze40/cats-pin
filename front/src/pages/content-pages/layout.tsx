@@ -1,12 +1,16 @@
 import { ReactElement } from "react";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 import { Header } from "@/widgets";
+
+const queryClient = new QueryClient();
 
 const ContentPageLayout = ({ children }: { children: ReactElement }) => {
   return (
     <main>
       <Header />
-      {children}
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </main>
   );
 };
