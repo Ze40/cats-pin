@@ -12,3 +12,15 @@ export const useAddLike = () => {
     },
   });
 };
+
+export const useRemuveLike = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (catId: string) => api.delete(`/cats/likes/${catId}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cats"] });
+      queryClient.invalidateQueries({ queryKey: ["favoriteCats"] });
+    },
+  });
+};

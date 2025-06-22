@@ -6,7 +6,7 @@ import { Header } from "@/widgets";
 
 const queryClient = new QueryClient();
 
-const ContentPageLayout = ({ children }: { children: ReactElement }) => {
+const ContentPageLayout = ({ children }: { children: ReactElement | ReactElement[] }) => {
   return (
     <main>
       <Header />

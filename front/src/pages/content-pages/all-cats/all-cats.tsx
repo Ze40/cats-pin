@@ -5,14 +5,12 @@ import { Cat } from "@/entities";
 import { TheCardViewer } from "@/feat";
 import { Container } from "@/shared/ui";
 
-import ContentPageLayout from "../layout";
-
 const AllCatsPage = () => {
   const {
     data: cats = [],
     isLoading,
     isError,
-  } = useQuery({
+  } = useQuery<Cat[]>({
     queryKey: ["cats"],
     queryFn: () =>
       api
@@ -29,11 +27,9 @@ const AllCatsPage = () => {
     return <div>Произошла ошибка</div>;
   }
   return (
-    <ContentPageLayout>
-      <Container>
-        <TheCardViewer items={cats} isLoading={isLoading} />
-      </Container>
-    </ContentPageLayout>
+    <Container>
+      <TheCardViewer items={cats} isLoading={isLoading} />
+    </Container>
   );
 };
 
