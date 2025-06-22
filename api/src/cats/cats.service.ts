@@ -28,7 +28,7 @@ export class CatsService {
 
   public async getCats(page: number): Promise<Cats[]> {
     const cats = (await fetch(
-      `${this.apiUrl}?limit=${this.catsLimit}/search&page=${page}&order=ASC`,
+      `${this.apiUrl}/search?limit=${this.catsLimit}&page=${page}&order=ASC`,
       {
         method: 'GET',
         headers: {
@@ -58,7 +58,7 @@ export class CatsService {
       return [];
     }
 
-    const favoriteCats = await Promise.all(
+    const favoriteCats: Cats[] = await Promise.all(
       likes.map(async (like) => {
         const response = await fetch(`${this.apiUrl}/${like.cat_id}`, {
           method: 'GET',
@@ -74,12 +74,14 @@ export class CatsService {
             `Не удалось найти кота с id: ${like.cat_id}`,
           );
         }
-
         return response.json();
       }),
     );
 
-    return favoriteCats;
+    return favoriteCats.map((cat) => {
+      cat.isFavorite = true;
+      return cat;
+    });
   }
 
   public async addLike(newLike: AddLikeDto): Promise<Like> {
