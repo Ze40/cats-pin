@@ -4,7 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { CatsModule } from './cats/cats.module';
 import { DbModule } from './db/db.module';
-import { User } from './users/user.entity';
+import { Like } from './db/entity/like.entity';
+import { User } from './db/entity/user.entity';
 import { UserModule } from './users/user.module';
 
 @Module({
@@ -20,7 +21,7 @@ import { UserModule } from './users/user.module';
       username: 'postgres',
       password: '1',
       database: 'support_lk_db',
-      entities: [User],
+      entities: [User, Like],
       synchronize: true,
     }),
     UserModule,

@@ -1,13 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/db/entity/user.entity';
 import { CreateUserDTO } from 'src/users/dto';
-import { User } from 'src/users/user.entity';
 import { Repository } from 'typeorm';
+
+import { Like } from './entity/like.entity';
 
 @Injectable()
 export class DbService {
   public constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
+    @InjectRepository(Like) private likeRepository: Repository<Like>,
   ) {}
 
   public createUser(user: CreateUserDTO): Promise<User> {
@@ -23,5 +26,31 @@ export class DbService {
     const user = await this.userRepository.findOneBy({ login });
     if (!user) return undefined;
     return user;
+  }
+
+  public async getLikes(): Promise<Like[]> {
+    try {
+      const likes = await this.likeRepository.find();
+      return likes;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async addLike(catId: string): Promise<Like> {
+    try {
+      const like = await this.likeRepository.create({
+        cat_id: catId,
+      });
+      return this.likeRepository.save(like);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async getLikeById(catId: string): Promise<Like> | undefined {
+    const like = await this.likeRepository.findOneBy({ cat_id: catId });
+    if (!like) return undefined;
+    return like;
   }
 }
