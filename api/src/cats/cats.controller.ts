@@ -12,6 +12,11 @@ export class CatsController {
     return this.catsService.getCats(page);
   }
 
+  @Get('likes')
+  public async getFavoriteCats() {
+    return this.catsService.getFavoriteCats();
+  }
+
   @Post('likes')
   public async addLike(@Body() newLike: AddLikeDto) {
     return this.catsService.addLike(newLike);
