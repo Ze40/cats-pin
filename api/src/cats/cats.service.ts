@@ -18,7 +18,7 @@ export class CatsService {
   ) {
     this.apiKey = configService.getOrThrow<string>('CATS_API_KEY');
     this.apiUrl = 'https://api.thecatapi.com/v1/images/search';
-    this.catsLimit = 10;
+    this.catsLimit = 20;
   }
 
   public async getCats(page: number): Promise<Cats[]> {
@@ -40,7 +40,7 @@ export class CatsService {
 
     likes.forEach(({ cat_id }) => {
       const likedCat = cats.find((cat) => cat.id === cat_id);
-      likedCat.isFavorite = true;
+      if (likedCat) likedCat.isFavorite = true;
     });
 
     return cats;
