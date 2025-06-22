@@ -1,19 +1,20 @@
 import clsx from "clsx";
 
+import { Cat } from "@/entities";
 import { CatCard } from "@/shared/ui/cat-card/CatCard";
 
 import classes from "./style.module.scss";
 
 interface TheCardViewerProps {
   className?: string;
-  items: Array<string>;
+  items: Cat[];
 }
 
-export const TheCardViewer = ({ className }: TheCardViewerProps) => {
+export const TheCardViewer = ({ className, items }: TheCardViewerProps) => {
   return (
     <section className={clsx(classes.viewer, className)}>
-      {[...new Array(20)].map((cat, i) => (
-        <CatCard cat="/test.png" key={cat + i} />
+      {items.map((cat) => (
+        <CatCard cat={cat} key={cat.id} />
       ))}
     </section>
   );
