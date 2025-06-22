@@ -3,6 +3,7 @@
   grid-template-columns: repeat(auto-fill, 225px);
   gap: 32px;
   justify-content: center;
+  max-height: min-content;
 
   @media (max-width: 1300px) {
     row-gap: 24px;

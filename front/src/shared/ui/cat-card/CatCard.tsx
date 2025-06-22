@@ -13,6 +13,7 @@ interface CatCardProps {
 export const CatCard = ({ className, cat }: CatCardProps) => {
   return (
     <div className={clsx(classes.imgBox, className)}>
+      <img src={cat.url} className={classes.bgImg} />
       <img src={cat.url} alt={cat.url} className={classes.img} />
       <button type="button" className={classes.icon}>
         <HeartIcon isFill={cat.isFavorite} />
