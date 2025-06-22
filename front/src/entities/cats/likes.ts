@@ -1,7 +1,14 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
 import { api } from "@/api/api";
 
-import { Like } from "./like.type";
+export const useAddLike = () => {
+  const queryClient = useQueryClient();
 
-export const addLike = async (catId: string) => {
-  return api.post<Like>("/cats/likes", { cat_id: catId });
+  return useMutation({
+    mutationFn: (catId: string) => api.post("/cats/likes", { cat_id: catId }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cats"] });
+    },
+  });
 };
