@@ -16,8 +16,8 @@ import { UserModule } from './users/user.module';
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5433,
+      host: 'cat-pinterest-api-pg',
+      port: 5432,
       username: 'postgres',
       password: '1',
       database: 'support_lk_db',

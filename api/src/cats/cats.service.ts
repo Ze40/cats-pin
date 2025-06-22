@@ -21,7 +21,8 @@ export class CatsService {
     private readonly configService: ConfigService,
     private readonly dbService: DbService,
   ) {
-    this.apiKey = configService.getOrThrow<string>('CATS_API_KEY');
+    this.apiKey =
+      'live_oRb0ZLnDNpNE00q5Na8mmjUIYDIVj99Iq0WWwczutsWdVkD0tvYbLEkBDtSOVYPn';
     this.apiUrl = 'https://api.thecatapi.com/v1/images';
     this.catsLimit = 20;
   }

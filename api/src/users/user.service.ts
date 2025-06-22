@@ -17,7 +17,7 @@ export class UserService {
   async register(dto: RegisterUserDTO): Promise<string> {
     const existingUser = await this.dbService.getUserByLogin(dto.login);
     if (existingUser) {
-      throw new ConflictException('User already exists');
+      throw new ConflictException('Пользователь уже существует');
     }
 
     const hashedPassword = await hash(dto.password);
