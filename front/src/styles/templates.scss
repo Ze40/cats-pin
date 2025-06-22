@@ -26,6 +26,10 @@
   justify-content: center;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .m-auto {
   margin: 0 auto;
 }
@@ -82,4 +86,8 @@
 
 .mb-3xl {
   margin-bottom: 48px;
+}
+
+.p-2xl {
+  padding: 32px;
 }
