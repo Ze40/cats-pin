@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { CatsModule } from './cats/cats.module';
 import { DbModule } from './db/db.module';
 import { User } from './users/user.entity';
 import { UserModule } from './users/user.module';
@@ -24,6 +25,7 @@ import { UserModule } from './users/user.module';
     }),
     UserModule,
     DbModule,
+    CatsModule,
   ],
   controllers: [],
   providers: [],
