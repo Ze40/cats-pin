@@ -1,7 +1,7 @@
 import clsx from "clsx";
 
 import { HeartIcon } from "@/assets/icons";
-import { Cat, addLike } from "@/entities";
+import { Cat, useAddLike } from "@/entities";
 
 import classes from "./style.module.scss";
 
@@ -11,6 +11,7 @@ interface CatCardProps {
 }
 
 export const CatCard = ({ className, cat }: CatCardProps) => {
+  const { mutate: addLike } = useAddLike();
   return (
     <div className={clsx(classes.imgBox, className)}>
       <img src={cat.url} className={classes.bgImg} />
