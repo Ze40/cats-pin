@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/db/entity/user.entity';
 import { CreateUserDTO } from 'src/users/dto';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 
 import { Like } from './entity/like.entity';
 
@@ -51,6 +51,11 @@ export class DbService {
   public async getLikeById(catId: string): Promise<Like> | undefined {
     const like = await this.likeRepository.findOneBy({ cat_id: catId });
     if (!like) return undefined;
+    return like;
+  }
+
+  public async deleteLikeById(catId: string): Promise<DeleteResult> {
+    const like = await this.likeRepository.delete({ cat_id: catId });
     return like;
   }
 }

@@ -2,6 +2,7 @@ import clsx from "clsx";
 
 import { HeartIcon } from "@/assets/icons";
 import { Cat, useAddLike } from "@/entities";
+import { useRemuveLike } from "@/entities/cats/likes";
 
 import classes from "./style.module.scss";
 
@@ -12,6 +13,7 @@ interface CatCardProps {
 
 export const CatCard = ({ className, cat }: CatCardProps) => {
   const { mutate: addLike } = useAddLike();
+  const { mutate: remuveLike } = useRemuveLike();
   return (
     <div className={clsx(classes.imgBox, className)}>
       <img src={cat.url} className={classes.bgImg} />
@@ -24,7 +26,9 @@ export const CatCard = ({ className, cat }: CatCardProps) => {
             ? () => {
                 addLike(cat.id);
               }
-            : () => {}
+            : () => {
+                remuveLike(cat.id);
+              }
         }
       >
         <HeartIcon isFill={cat.isFavorite} />

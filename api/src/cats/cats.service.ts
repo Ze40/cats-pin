@@ -100,4 +100,14 @@ export class CatsService {
       throw error;
     }
   }
+
+  public async remuveLike(catId: string): Promise<{ succes: boolean }> {
+    try {
+      const res = await this.dbService.deleteLikeById(catId);
+      if (res.affected > 0) return { succes: true };
+      return { succes: false };
+    } catch (error) {
+      throw error;
+    }
+  }
 }
