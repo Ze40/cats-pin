@@ -9,8 +9,10 @@ import ContentPageLayout from "../layout";
 
 const AllCatsPage = () => {
   const [cats, setCats] = useState<Cat[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    setIsLoading(true);
     api
       .get<Cat[]>("/cats", {
         headers: {
@@ -19,9 +21,10 @@ const AllCatsPage = () => {
       })
       .then((response) => {
         setCats(response.data);
+        setIsLoading(false);
       })
       .catch((error) => {
-        console.error("Error fetching cats:", error);
+        console.error("Ошибка при получении котов:", error);
       });
   }, []);
 
@@ -32,7 +35,7 @@ const AllCatsPage = () => {
   return (
     <ContentPageLayout>
       <Container>
-        <TheCardViewer items={cats} />
+        <TheCardViewer items={cats} isLoading={isLoading} />
       </Container>
     </ContentPageLayout>
   );
