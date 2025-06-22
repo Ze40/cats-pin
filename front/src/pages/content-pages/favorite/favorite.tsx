@@ -1,11 +1,13 @@
-import { Header } from "@/widgets";
+import { Container } from "@/shared/ui";
 
 import ContentPageLayout from "../layout";
 
 const FavoritePage = () => {
   return (
     <ContentPageLayout>
-      <Header />
+      <Container>
+        <></>
+      </Container>
     </ContentPageLayout>
   );
 };
