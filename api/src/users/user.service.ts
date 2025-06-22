@@ -1,41 +1,56 @@
-import { ConflictException, Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { hash } from 'argon2';
-import * as crypto from 'crypto';
-import { DbService } from 'src/db/db.service';
+import {
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { hash, verify } from 'argon2';
 
-import { CreateUserDTO } from './dto';
+import { DbService } from '../db/db.service';
+import { LoginUserDto, RegisterUserDTO } from './dto';
 
 @Injectable()
 export class UserService {
-  public constructor(
-    private readonly dbService: DbService,
-    private readonly configService: ConfigService,
-  ) {
-    this.secretSalt =
-      configService.getOrThrow<string>('SECRET_SALT') || 'default-secret-salt';
-  }
+  constructor(private readonly dbService: DbService) {}
 
-  private secretSalt;
+  private sessions = new Map<string, number>();
 
-  public async create(user: CreateUserDTO): Promise<string> {
-    const isExists = this.dbService.getUserByLogin(user.login);
-    if (isExists) {
-      throw new ConflictException('Такой пользователь уже существует');
+  async register(dto: RegisterUserDTO): Promise<string> {
+    const existingUser = await this.dbService.getUserByLogin(dto.login);
+    if (existingUser) {
+      throw new ConflictException('User already exists');
     }
 
-    const newPass = await hash(user.password);
-    user.password = newPass;
-    const newUser = await this.dbService.createUser(user);
+    const hashedPassword = await hash(dto.password);
+    const user = await this.dbService.createUser({
+      login: dto.login,
+      password: hashedPassword,
+    });
 
-    const token = this.createToken(newUser.id);
+    const token = this.generateToken(user.id);
+    this.sessions.set(token, user.id);
     return token;
   }
 
-  private createToken(userId: number): string {
-    return crypto
-      .createHash('sha256')
-      .update(userId.toString() + this.secretSalt)
-      .digest('hex');
+  async login(dto: LoginUserDto): Promise<string> {
+    const user = await this.dbService.getUserByLogin(dto.login);
+    if (!user || !(await verify(user.password, dto.password))) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    const token = this.generateToken(user.id);
+    this.sessions.set(token, user.id);
+    return token;
+  }
+
+  async logout(token: string): Promise<void> {
+    this.sessions.delete(token);
+  }
+
+  async validateToken(token: string): Promise<number | null> {
+    return this.sessions.get(token) || null;
+  }
+
+  private generateToken(userId: number): string {
+    return Buffer.from(`${userId}:${Date.now()}`).toString('base64');
   }
 }

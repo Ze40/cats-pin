@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/db/entity/user.entity';
-import { CreateUserDTO } from 'src/users/dto';
+import { RegisterUserDTO } from 'src/users/dto';
 import { DeleteResult, Repository } from 'typeorm';
 
 import { Like } from './entity/like.entity';
@@ -13,7 +13,7 @@ export class DbService {
     @InjectRepository(Like) private likeRepository: Repository<Like>,
   ) {}
 
-  public createUser(user: CreateUserDTO): Promise<User> {
+  public createUser(user: RegisterUserDTO): Promise<User> {
     try {
       const newUser = this.userRepository.create(user);
       return this.userRepository.save(newUser);

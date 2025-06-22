@@ -1,8 +1,9 @@
 import { Navigate } from "react-router";
 
+import { isAuth } from "@/shared/helpers";
+
 const IndexPage = () => {
-  const isAuth = true; //Заглушка
-  return <main>{!isAuth ? <Navigate to={"/login"} /> : <Navigate to={"/all-cats"} />}</main>;
+  return <main>{!isAuth() ? <Navigate to={"/login"} /> : <Navigate to={"/all-cats"} />}</main>;
 };
 
 export default IndexPage;

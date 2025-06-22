@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
 import { IsLogin } from 'src/utils/validators';
 
-export class CreateUserDTO {
+export class RegisterUserDTO {
   @IsNotEmpty({ message: 'Логин обязателен' })
   @IsString({ message: 'Логин должен быть строкой' })
   @MaxLength(30, { message: 'Максимальная длина логина 30 символов' })
